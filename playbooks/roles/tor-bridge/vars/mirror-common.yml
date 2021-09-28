@@ -7,7 +7,9 @@ tor_project_name: "Tor Browser Bundle"
 tor_mirror_location: "{{ streisand_mirror_location }}/tor"
 tor_mirror_href_base: "/mirror/tor"
 
-tor_base_download_url: "https://dist.torproject.org/torbrowser/{{ tor_browser_bundle_version }}"
+tor_browser_bundle_version: "10.5.6"
+
+tor_base_download_url: "https://www.torproject.org/dist/torbrowser/{{ tor_browser_bundle_version }}"
 
 tor_available_locales:
   - ar
