@@ -5,8 +5,14 @@ udp-port = {{ ocserv_port }}
 run-as-user = nobody
 run-as-group = {{ ocserv_key_ou }}
 socket-file = {{ ocserv_socket_file }}
+
+{% if le_ok %}
+server-cert = {{ le_certificate }}
+server-key = {{ le_private_key }}
+{% else %}
 server-cert = {{ ocserv_server_certificate_file }}
 server-key = {{ ocserv_server_key_file }}
+{% endif %}
 ca-cert = {{ ocserv_ca_certificate_file }}
 isolate-workers = true
 
