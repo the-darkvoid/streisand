@@ -11,10 +11,12 @@
   apt:
     update_cache: yes
     cache_valid_time: 3600
+    force_apt_get: yes
 
 - name: Install Streisand common packages
   apt:
     package: "{{ streisand_common_packages }}"
+    force_apt_get: yes
 
 - name: Purge unneeded services
   apt:
@@ -26,6 +28,7 @@
 - name: Perform a full system upgrade
   apt:
     upgrade: "safe"
+    force_apt_get: yes
 
 - name: Copy the English BIP-0039 wordlist
   copy:
