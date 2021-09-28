@@ -59,7 +59,7 @@ server {
   auth_basic            "Authorization Required";
   auth_basic_user_file  {{ streisand_gateway_htpasswd_file }};
 
-  ssl_protocols TLSv1.2;
+  ssl_protocols TLSv1.3 TLSv1.2;
   ssl_prefer_server_ciphers on;
   ssl_ciphers '{{ streisand_tls_ciphers }}';
   ssl_ecdh_curve auto;
