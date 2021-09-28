@@ -17,7 +17,7 @@
 
 - name: Ensure UFW allows SSH
   ufw:
-    to_port: "{{ ssh_port }}"
+    to_port: "{{ ssh_port | string }}"
     proto: "tcp"
     rule: "allow"
 
@@ -29,6 +29,6 @@
 
 - name: Ensure UFW allows nginx
   ufw:
-    to_port: "{{ nginx_port }}"
+    to_port: "{{ nginx_port | string }}"
     proto: "tcp"
     rule: "allow"

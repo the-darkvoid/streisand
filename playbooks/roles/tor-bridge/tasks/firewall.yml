@@ -1,12 +1,12 @@
 ---
 - name: Ensure UFW allows Tor bridge
   ufw:
-    to_port: "{{ tor_orport }}"
+    to_port: "{{ tor_orport | string }}"
     proto: "tcp"
     rule: "allow"
 
 - name: Ensure UFW allows Tor obfs4 pluggable transport
   ufw:
-    to_port: "{{ tor_obfs4_port }}"
+    to_port: "{{ tor_obfs4_port | string }}"
     proto: "tcp"
     rule: "allow"
