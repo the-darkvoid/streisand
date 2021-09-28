@@ -2,38 +2,13 @@
 - name: Apply the sysctl value to enable TCP Fast Open
   sysctl:
     name: net.ipv4.tcp_fastopen
-    value: 3
+    value: '3'
     state: present
   when: ansible_virtualization_type != 'lxc'
-
-- name: Add the Shadowsocks PPA
-  apt_repository:
-    repo: 'ppa:max-c-lv/shadowsocks-libev'
-  register: shadowsocks_add_apt_repository
-  until: not shadowsocks_add_apt_repository.failed
-  retries: "{{ apt_repository_retries }}"
-  delay: "{{ apt_repository_delay }}"
 
 - name: Install shadowsocks-libev
   apt:
     package: "shadowsocks-libev"
-
-- name: Create the shadowsocks-libev config directory
-  file:
-    path: "{{ shadowsocks_location }}"
-    owner: root
-    # The nobody user in nogroup needs to be able to read the config file
-    group: nogroup
-    # It is safe to make this directory world read only because the password
-    # file and config file are not
-    mode: 0755
-    state: directory
-
-- name: Populate the shadowsocks-libev systemd defaults
-  template:
-    src: shadowsocks-libev.default.j2
-    dest: "/etc/default/shadowsocks-libev"
-    mode: 0644
 
 - name: Generate a random Shadowsocks password
   shell: openssl rand -base64 48 > {{ shadowsocks_password_file }}
@@ -45,7 +20,7 @@
     path: "{{ shadowsocks_password_file }}"
     owner: root
     group: root
-    mode: 0600
+    mode: 0644
 
 - name: Register Shadowsocks password
   command: cat {{ shadowsocks_password_file }}
@@ -62,7 +37,7 @@
     dest: "{{ shadowsocks_location }}/config.json"
     # The nobody user in nogroup needs to be able to read the config file
     group: nogroup
-    mode: 0640
+    mode: 0644
 
 - name: Create the shadowsocks systemd configuration directory
   file:
