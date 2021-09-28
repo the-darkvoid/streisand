@@ -4,6 +4,27 @@
     package: bind9
     state: absent
 
+- name: Delete existing /etc/resolv.conf file or link
+  file:
+    path: /etc/resolv.conf
+    state: absent
+
+- name: Create symlink for /etc/resolv.conf
+  file:
+    src: /run/systemd/resolve/resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+
+- name: Disable systemd-resolved DNSStubListener
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    line: DNSStubListener=no
+
+- name: Restart system.resolved
+  service:
+    name: systemd-resolved
+    state: restarted
+
 - name: Install dnsmasq
   apt:
     package: dnsmasq
