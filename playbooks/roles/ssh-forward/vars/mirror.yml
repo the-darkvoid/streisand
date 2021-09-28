@@ -12,12 +12,13 @@ putty_href: "{{ ssh_mirror_href_base }}/{{ putty_filename }}"
 # download-and-verify.yml renames files with non-standard extensions
 putty_sig_href: "{{ ssh_mirror_href_base }}/{{ putty_filename }}.asc"
 
-putty_gpg_keyid: "4AE8DA82"
+putty_gpg_keyid: "E27394ACA3F9D9049522E0546289A25F4AE8DA82"
 putty_download_files:
-  - { "file": "{{ putty_filename }}", "sig": "{{ putty_sig_filename }}" }
+  - { "file": "{{ putty_filename }}", "sig": "{{ putty_sig_filename }}", "key": "{{ putty_gpg_keyid }}" }
 
-sshuttle_version: "0.78.0"
+sshuttle_version: "1.0.5"
 sshuttle_filename: "sshuttle-{{ sshuttle_version }}.tar.gz"
 sshuttle_href: "{{ ssh_mirror_href_base }}/{{ sshuttle_filename }}"
-sshuttle_url: "https://codeload.github.com/sshuttle/sshuttle/tar.gz/v{{ sshuttle_version }}"
-sshuttle_checksum: "sha256:0742e3e670c8df629ae702a32cfad96c7c4e8f7ab8f66c26d94c55d42b01e4b4"
+sshuttle_url: "https://codeload.github.com/sshuttle/sshuttle/tar.gz/refs/tags/v{{ sshuttle_version }}"
+
+sshuttle_checksum: "sha256:a1950b2c0c7453031f710c216e3c23c1450a0d2af586bcc2271b6ab366dd99d6"
