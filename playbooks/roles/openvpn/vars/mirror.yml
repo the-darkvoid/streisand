@@ -16,15 +16,17 @@ openvpn_windows_installer_sig_filename: "{{ openvpn_windows_installer_filename }
 openvpn_windows_installer_href:         "{{ openvpn_mirror_href_base }}/{{ openvpn_windows_installer_filename }}"
 openvpn_windows_installer_sig_href:     "{{ openvpn_mirror_href_base }}/{{ openvpn_windows_installer_sig_filename }}"
 
-openvpn_gpg_keyid: "5ACFEAC6"
+openvpn_src_gpg_keyid: "FC36782266EFF6240C479D2711CA39C82C05EE89"
+openvpn_win_gpg_keyid: "333D46306CF9D9F1F630DB8D96AEC408005D6BB4"
+
 openvpn_download_files:
-  - { "file": "{{ openvpn_source_filename }}", "sig": "{{ openvpn_source_sig_filename }}" }
-  - { "file": "{{ openvpn_windows_installer_filename }}", "sig": "{{ openvpn_windows_installer_sig_filename }}" }
+  - { "file": "{{ openvpn_source_filename }}", "sig": "{{ openvpn_source_sig_filename }}", "key": "{{ openvpn_src_gpg_keyid }}" }
+  - { "file": "{{ openvpn_windows_installer_filename }}", "sig": "{{ openvpn_windows_installer_sig_filename }}", "key": "{{ openvpn_win_gpg_keyid }}" }
 
 # macOS
-tunnelblick_version:  "3.8.1"
-tunnelblick_build:    "5400"
+tunnelblick_version:  "3.8.6a"
+tunnelblick_build:    "5711"
 tunnelblick_filename: "Tunnelblick_{{ tunnelblick_version }}_build_{{ tunnelblick_build }}.dmg"
 tunnelblick_href:     "{{ openvpn_mirror_href_base }}/{{ tunnelblick_filename }}"
 tunnelblick_url:      "https://tunnelblick.net/release/{{ tunnelblick_filename }}"
-tunnelblick_checksum: "sha256:a619a1c01a33a8618fc2489a43241e95c828dcdb7f7c56cfc883dcbb22644693"
+tunnelblick_checksum: "sha256:636c52eaba89a0fc7549160892fabb62f4d11bb34d959872f2c0ab93765e0835"
