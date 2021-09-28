@@ -16,11 +16,11 @@
   command: "{{ item }}"
   with_items: "{{ wireguard_firewall_rules }}"
 
-- name: "Add WireGuard firewall persistence service to init"
+- name: "Add WireGuard firewall persistence service to systemd"
   template:
-    src: streisand-wireguard-service.sh.j2
-    dest: /etc/init.d/streisand-wireguard
-    mode: 0755
+    src: streisand-wireguard.service.j2
+    dest: /etc/systemd/system/streisand-wireguard.service
+    mode: 0644
 
 - name: "Enable the streisand-wireguard init service"
   service:

@@ -1,6 +1,6 @@
 ---
 
-# Set up the PPA and install packages
+# Set up and install packages
 - import_tasks: install.yml
 
 - name: Generate private and public key for the server
