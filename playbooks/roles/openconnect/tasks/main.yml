@@ -116,11 +116,11 @@
     dest: /etc/systemd/system/ocserv.service
     mode: 0644
 
-- name: Stop and disable ocserv.socket
-  systemd:
-    name: ocserv.socket
-    state: stopped
-    enabled: no
+#- name: Stop and disable ocserv.socket
+#  systemd:
+#    name: ocserv.socket
+#    state: stopped
+#    enabled: no
 
 - name: Enable the ocserv service
   systemd:
