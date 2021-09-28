@@ -22,7 +22,7 @@
   with_items: "{{ project_download_files }}"
 
 - name: "Verify the {{ project_name }} download signatures with the Streisand GPG keyring"
-  command: "gpgv2 --keyring {{ streisand_gpg_keyring }} {{ project_download_location }}/{{ item.sig }} {{ project_download_location }}/{{ item.file }}"
+  command: "gpg --verify --no-default-keyring --keyring {{ streisand_gpg_keyring }} {{ project_download_location }}/{{ item.sig }} {{ project_download_location }}/{{ item.file }}"
   environment:
     # We need to explicitly override the configured LANG, LC_MESSAGES and LC_ALL
     # env vars to ensure that we can match on English output even on systems
@@ -55,16 +55,15 @@
 - name: "Verify the {{ project_name }} download signatures were from the correct keys"
   assert:
     that:
-      # By default gpgv outputs to stderr. For a good signature the first line
+      # By default gpg outputs to stderr. For a good signature the second line
       # always ends being like:
-      # "gpgv: Signature made Fri 16 Mar 2018 11:16:40 PM UTC using RSA key ID
-      #   C3C07136"
-      # Since we've already verified the gpgv2 return code we can just check for
+      # "gpg:                using RSA key 333D46306CF9D9F1F630DB8D96AEC408005D6BB4"
+      # Since we've already verified the gpg return code we can just check for
       # the presence of the key ID we expect in the first line of stderr output
       # and be confident we saw a valid signature from the expected key ID and
       # not another unrelated key in the Streisand keyring.
-      - "'key ID {{ project_signer_keyid }}' in '{{ item.stderr_lines[0] }}'"
-    msg: "The GPG signature on {{ item.item.file }} was not from {{ project_signer_keyid }}"
+      - "'gpg:                using RSA key {{ item.item.key }}' in '{{ item.stderr_lines[1] }}'"
+    msg: "The GPG signature on {{ item.item.file }} was not from {{ item.item.key }}"
   with_items: "{{ gpg_verification_results.results }}"
   loop_control:
     label: "{{ item.item.file }}"
