@@ -25,6 +25,7 @@
       "16": "sa-east-1"
       "17": "eu-north-1"
       "18": "me-south-1"
+      "19": "me-central-1"
 
   # These variable files are included so the ec2-security-group role
   # knows which ports to open
