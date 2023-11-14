@@ -72,6 +72,10 @@
       - "arn:aws:automate:{{ aws_region }}:ec2:recover"
   when: aws_instance_type.startswith(("t2", "c3", "c4", "m3", "m4", "r3", "x1"))
 
+- name: Pause for 2 minutes to allow server to start (unconfigured SSH workaround)
+  pause:
+    minutes: 2
+
 - name: Wait until the server has finished booting and OpenSSH is accepting connections
   wait_for:
     host: "{{ streisand_server.instances[0].public_ip }}"
